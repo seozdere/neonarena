@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelsSim - Simülatör</title>
+    <link rel="stylesheet" href="style.css?v=2022videoeditready">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@400;700;900&family=Russo+One&display=swap" rel="stylesheet">
+    <meta name="description" content="ReelsSim - Gelişmiş Maç Simülatörü">
+    <meta name="theme-color" content="#6366f1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Settings Panel (Side) -->
+        <aside class="settings-panel active" id="settingsPanel">
+            <div class="settings-header">
+                <h2 data-i18n="simSettings"><i class="icon-settings"></i> SİMÜLASYON AYARLARI</h2>
+                <select id="langSelect" style="background: rgba(255,255,255,0.1); color: white; border: none; padding: 5px; border-radius: 5px; outline: none; margin-left: 10px;">
+                    <option value="tr">TR</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
+            
+            <div class="settings-scroll-area">
+                <!-- Group: General -->
+                <section class="settings-section">
+                    <h3 class="section-title" data-i18n="genSettings">GENEL AYARLAR</h3>
+                    <div class="setting-item">
+                        <label data-i18n="simTitle">Simülasyon Başlığı</label>
+                        <input type="text" id="mainTitle" placeholder="KİM KAZANACAK?" value="KİM KAZANACAK?">
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="matchDuration">Maç Süresi (Saniye)</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="matchDuration" value="60">
+                            <span>sn</span>
+                        </div>
+                    </div>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="autoModeToggle">
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="autoModeToggle">Kaos Barı</span>
+                    </label>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="videoEditModeToggle">
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="videoEditModeToggle">Video Edit Modu</span>
+                    </label>
+                    <div class="setting-item">
+                        <label data-i18n="videoEditVsDuration">Edit VS Süresi</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="videoEditVsDuration" min="2" max="15" step="0.5" value="3">
+                            <span>sn</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="arenaSelect">Arena / Pitch</label>
+                        <select id="arenaSelect" class="arena-select"></select>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="arenaUpload">Arena Görselleri</label>
+                        <label class="file-custom">
+                            <input type="file" id="arenaFiles" accept="image/*" multiple>
+                            <span class="file-btn" data-i18n="selectArenas">Arena Seç</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Group: Teams -->
+                <section class="settings-section">
+                    <h3 class="section-title" data-i18n="teamConfig">TAKIM YAPILANDIRMASI</h3>
+                    <div class="teams-grid">
+                        <div class="team-config-card">
+                            <label class="team-label" data-i18n="team1">1. TAKIM</label>
+                            <input type="text" id="team1Name" value="Fenerbahçe">
+                            <div class="team-assets">
+                                <div class="asset-item">
+                                    <span data-i18n="color">Renk 1</span>
+                                    <input type="color" id="team1Color" value="#fbbf24">
+                                </div>
+                                <div class="asset-item">
+                                    <span data-i18n="color2">Renk 2</span>
+                                    <input type="color" id="team1Color2" value="#1e3a8a">
+                                </div>
+                                <div class="asset-item optional-color hidden" id="team1Color3Wrap">
+                                    <span data-i18n="color3">Renk 3</span>
+                                    <input type="color" id="team1Color3" value="#ffffff">
+                                    <button type="button" class="remove-color-btn" id="team1RemoveColor3" aria-label="3. rengi kapat" title="3. rengi kapat">&times;</button>
+                                </div>
+                                <button type="button" class="add-color-btn" id="team1AddColor" data-i18n="addColor">+ RENK</button>
+                                <div class="asset-item">
+                                    <span data-i18n="logo">Logo</span>
+                                    <label class="file-custom">
+                                        <input type="file" id="team1Logo" accept="image/*">
+                                        <span class="file-btn" data-i18n="select">Seç</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="team-config-card">
+                            <label class="team-label" data-i18n="team2">2. TAKIM</label>
+                            <input type="text" id="team2Name" value="Galatasaray">
+                            <div class="team-assets">
+                                <div class="asset-item">
+                                    <span data-i18n="color">Renk 1</span>
+                                    <input type="color" id="team2Color" value="#ef4444">
+                                </div>
+                                <div class="asset-item">
+                                    <span data-i18n="color2">Renk 2</span>
+                                    <input type="color" id="team2Color2" value="#fbbf24">
+                                </div>
+                                <div class="asset-item optional-color hidden" id="team2Color3Wrap">
+                                    <span data-i18n="color3">Renk 3</span>
+                                    <input type="color" id="team2Color3" value="#ffffff">
+                                    <button type="button" class="remove-color-btn" id="team2RemoveColor3" aria-label="3. rengi kapat" title="3. rengi kapat">&times;</button>
+                                </div>
+                                <button type="button" class="add-color-btn" id="team2AddColor" data-i18n="addColor">+ RENK</button>
+                                <div class="asset-item">
+                                    <span data-i18n="logo">Logo</span>
+                                    <label class="file-custom">
+                                        <input type="file" id="team2Logo" accept="image/*">
+                                        <span class="file-btn" data-i18n="select">Seç</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Group: Physics -->
+                <section class="settings-section">
+                    <h3 class="section-title" data-i18n="physicsSettings">FİZİK VE HIZ AYARLARI</h3>
+                    <div class="physics-grid">
+                        <div class="setting-item">
+                            <label data-i18n="rotSpeed">Dönüş Hızı</label>
+                            <input type="range" id="simSpeed" min="5" max="50" value="20">
+                        </div>
+                        <div class="setting-item">
+                            <label data-i18n="launchPower">Fırlatma Gücü</label>
+                            <input type="range" id="ballLaunchSpeed" min="5" max="40" value="12">
+                        </div>
+                        <div class="setting-item">
+                            <label data-i18n="bounciness">Sekme Oranı</label>
+                            <input type="range" id="ballBounciness" min="0" max="80" value="20">
+                        </div>
+                        <div class="setting-item">
+                            <label data-i18n="airRes">Hava Direnci</label>
+                            <input type="range" id="ballDamping" min="5" max="60" value="25">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="settings-section">
+                    <h3 class="section-title" data-i18n="modeSettings">ANLIK MODLAR</h3>
+                    <div class="mode-actions">
+                        <button id="speedMode" class="mode-btn" data-i18n="speedMode">2X HIZ</button>
+                        <button id="twoGoalMode" class="mode-btn" data-i18n="twoGoalMode">2 KALE</button>
+                        <button id="reverseMode" class="mode-btn" data-i18n="reverseMode">TERS DÖNÜŞ</button>
+                        <button id="shrinkMode" class="mode-btn" data-i18n="shrinkMode">DAR ÇEMBER</button>
+                        <button id="multiBallMode" class="mode-btn" data-i18n="multiBallMode">ÇİFT TOP</button>
+                        <button id="goldenTouchMode" class="mode-btn" data-i18n="goldenTouchMode">GOLDEN TOUCH</button>
+                        <button id="freezeFrameMode" class="mode-btn" data-i18n="freezeFrameMode">FREEZE FRAME</button>
+                        <button id="bumperMode" class="mode-btn" data-i18n="bumperMode">BUMPER</button>
+                        <button id="tinyBallMode" class="mode-btn" data-i18n="tinyBallMode">TINY BALL</button>
+                        <button id="heavyBallMode" class="mode-btn" data-i18n="heavyBallMode">HEAVY BALL</button>
+                        <button id="goalSwapMode" class="mode-btn" data-i18n="goalSwapMode">GOAL SWAP</button>
+                        <button id="stopCircleMode" class="mode-btn" data-i18n="stopCircleMode">DAİRE DUR</button>
+                        <button id="stealPointMode" class="mode-btn" data-i18n="stealPointMode">STEAL POINT</button>
+                        <button id="clutchMode" class="mode-btn wide-mode-btn" data-i18n="clutchMode">CLUTCH TIME</button>
+                    </div>
+                </section>
+
+                <section class="settings-section">
+                    <h3 class="section-title" data-i18n="manualTextSettings">MANUEL YAZILAR</h3>
+                    <div class="manual-actions">
+                        <button type="button" class="manual-btn manual-goal-btn" data-manual-burst="letsGo" data-i18n="manualLetsGo">BAŞLIYOR!</button>
+                        <button type="button" class="manual-btn manual-neon-btn" data-manual-burst="soClose" data-i18n="manualSoClose">ÇOK YAKIN!</button>
+                        <button type="button" class="manual-btn manual-goal-btn" data-manual-burst="whatASave" data-i18n="manualWhatASave">KURTARDI!</button>
+                        <button type="button" class="manual-btn manual-neon-btn" data-manual-burst="post" data-i18n="manualPost">DİREKTEN!</button>
+                        <button type="button" class="manual-btn manual-alert-btn" data-manual-burst="chaos" data-i18n="manualChaos">KAOS!</button>
+                        <button type="button" class="manual-btn manual-alert-btn" data-manual-burst="nextGoal" data-i18n="manualNextGoal">SIRADAKİ GOL?</button>
+                        <button type="button" class="manual-btn manual-neon-btn" data-manual-burst="lastSecond" data-i18n="manualLastSecond">SON SANİYE!</button>
+                        <button type="button" class="manual-btn manual-alert-btn" data-manual-burst="comeback" data-i18n="manualComeback">GERİ DÖNÜŞ?</button>
+                        <button type="button" class="manual-btn manual-goal-btn" data-manual-burst="clutch" data-i18n="manualClutch">KRİTİK AN!</button>
+                        <button type="button" class="manual-btn manual-goal-btn" data-manual-burst="unreal" data-i18n="manualUnreal">İNANILMAZ!</button>
+                    </div>
+                </section>
+            </div>
+
+            <div class="settings-footer">
+                <div class="footer-actions">
+                    <button id="pauseGame" class="secondary-btn" data-i18n="pause">DURDUR</button>
+                    <button id="muteSound" class="secondary-btn" data-i18n="sound">SES</button>
+                </div>
+                <button id="applySettings" class="main-start-btn" data-i18n="startSim">SİMÜLASYONU BAŞLAT</button>
+                <button id="fullResetSim" class="reset-link-btn" data-i18n="resetAll">Tüm Ayarları Sıfırla</button>
+            </div>
+        </aside>
+        <button type="button" class="settings-panel-toggle" id="settingsPanelToggle" aria-label="Ayar panelini kapat" aria-expanded="true">
+            <span>&lsaquo;</span>
+        </button>
+
+        <!-- Main Viewport (9:16) -->
+        <main class="viewport" id="mainViewport">
+            <!-- Loading Overlay -->
+            <div id="loadingOverlay" class="loading-overlay hidden">
+                <div class="loader-circle"></div>
+                <div class="loader-text">YÜKLENİYOR...</div>
+            </div>
+
+            <div id="preMatchBanner" class="prematch-banner" aria-hidden="true">
+                <img id="preMatchBannerImg" src="assets/images/banner.png" alt="">
+            </div>
+
+            <div id="preVsHook" class="pre-vs-hook" aria-hidden="true">
+                <div class="hook-noise"></div>
+                <div class="hook-question-glass">
+                    <span id="hookEyebrow" class="hook-eyebrow">SENCE</span>
+                    <h2 id="hookQuestion">KİM KAZANIR?</h2>
+                </div>
+                <div class="hook-choice-row">
+                    <div class="hook-choice hook-choice-1">
+                        <div id="hookLogo1" class="hook-logo"></div>
+                    </div>
+                    <div class="hook-choice hook-choice-2">
+                        <div id="hookLogo2" class="hook-logo"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Match Intro Screen -->
+            <div id="matchIntro" class="match-intro-overlay">
+                <div class="team-card team1-side">
+                    <div class="team-content">
+                        <div class="logo-container">
+                            <div class="intro-glass"></div>
+                            <div class="intro-logo" id="introLogo1"></div>
+                        </div>
+                        <h2 id="introName1">FENERBAHÇE</h2>
+                    </div>
+                </div>
+                <div class="vs-badge">
+                    <span>VS</span>
+                </div>
+                <div class="team-card team2-side">
+                    <div class="team-content">
+                        <div class="logo-container">
+                            <div class="intro-glass"></div>
+                            <div class="intro-logo" id="introLogo2"></div>
+                        </div>
+                        <h2 id="introName2">GALATASARAY</h2>
+                    </div>
+                </div>
+                <!-- Giant VS Screen Countdown -->
+                <div id="giantCountdown" class="giant-countdown">3</div>
+            </div>
+
+            <!-- Cinematic Letterbox Bars -->
+            <div class="cinematic-bar top"></div>
+            <div class="cinematic-bar bottom"></div>
+
+            <div class="simulation-header hidden" id="gameHeader">
+                <h1 id="displayTitle">KİM KAZANACAK?</h1>
+                <div id="tempModeLabel" class="temp-mode-label"></div>
+            </div>
+            <div id="autoModeBar" class="auto-mode-bar hidden">
+                <div class="auto-mode-bar-top">
+                    <span data-i18n="autoModeBar">KAOS BARI</span>
+                    <span id="autoModePercent">0%</span>
+                </div>
+                <div class="auto-mode-track">
+                    <div id="autoModeFill" class="auto-mode-fill"></div>
+                </div>
+            </div>
+
+            <div id="idleOverlay" class="idle-glass-overlay">
+                <div class="field-markings-bg">
+                    <div class="field-line halfway"></div>
+                    <div class="field-line center-circle"></div>
+                    <div class="field-line penalty-box"></div>
+                </div>
+                
+                <div class="stadium-light left"></div>
+                <div class="stadium-light right"></div>
+                
+                <h1 class="idle-title breathing-glow" id="idleTitle" data-i18n="whoWillWin">KİM KAZANACAK?</h1>
+                
+                <div class="idle-teams-display" id="idleTeams">
+                    <div class="idle-team-card">
+                        <div class="idle-logo levitate-1" id="idleLogo1"></div>
+                        <span id="idleTeam1Name" class="idle-team-name">FENERBAHÇE</span>
+                    </div>
+                    
+                    <span class="idle-vs heartbeat">VS</span>
+                    
+                    <div class="idle-team-card">
+                        <div class="idle-logo levitate-2" id="idleLogo2"></div>
+                        <span id="idleTeam2Name" class="idle-team-name">GALATASARAY</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="canvas-container"></div>
+
+            <div class="timer-container">
+                <span id="timerDisplay">01:00</span>
+            </div>
+
+            <div class="scoreboard">
+                <div class="score-item team1">
+                    <span class="name" id="scoreName1">FEN</span>
+                    <span class="score" id="score1">0</span>
+                </div>
+                <div class="score-divider">VS</div>
+                <div class="score-item team2">
+                    <span class="name" id="scoreName2">GAL</span>
+                    <span class="score" id="score2">0</span>
+                </div>
+            </div>
+
+            <!-- Removed controls-overlay -->
+            <!-- Winner Spotlight Overlay -->
+            <div id="winnerSpotlight" class="winner-spotlight-overlay">
+                <div class="spotlight-beam"></div>
+                <div class="winner-congrats">
+                    <span class="congrats-title" data-i18n="winner">KAZANAN</span>
+                    <h2 class="congrats-name" id="spotlightName">FENERBAHÇE</h2>
+                </div>
+                <div class="winner-ball-container">
+                    <div class="winner-ball" id="spotlightBall">
+                        <div class="winner-ball-logo" id="spotlightLogo"></div>
+                        <div class="winner-ball-shimmer"></div>
+                    </div>
+                    <div class="winner-ball-shadow"></div>
+                </div>
+            </div>
+
+            <div id="subscribeContainer" class="subscribe-overlay">
+                <video id="subscribeVideo" src="assets/video/abone.mp4" playsinline muted style="filter: url(#chromaKey); width: 100%; height: auto; display: block;"></video>
+            </div>
+            <div class="vignette"></div>
+        </main>
+    </div>
+
+    <!-- SVG Filters for Post-Processing -->
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="chromatic-aberration-filter">
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red"/>
+                <feOffset in="red" dx="8" dy="0" result="red_offset"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue"/>
+                <feOffset in="blue" dx="-8" dy="0" result="blue_offset"/>
+                <feBlend in="red_offset" in2="green" mode="screen" result="temp"/>
+                <feBlend in="temp" in2="blue_offset" mode="screen"/>
+            </filter>
+            <filter id="chromaKey">
+                <!-- Create raw mask -->
+                <feColorMatrix type="matrix" values="
+                    1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    1.5 -2.5 1.5 0 0.8
+                " result="raw_mask"/>
+                <!-- Soften the edges -->
+                <feGaussianBlur in="raw_mask" stdDeviation="0.8" result="soft_mask"/>
+                <!-- Apply softer cutoff -->
+                <feComponentTransfer in="soft_mask">
+                    <feFuncA type="linear" slope="6" intercept="-2.5"/>
+                </feComponentTransfer>
+                <feComposite in="SourceGraphic" operator="in"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="assets/images/arenas/arenas.js?v=1"></script>
+    <script src="simulation.js?v=premium_v2_videoeditready"></script>
+</body>
+</html>
