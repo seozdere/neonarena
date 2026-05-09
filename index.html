@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReelsSim - Simülatör</title>
-    <link rel="stylesheet" href="style.css?v=2022videoeditready">
+    <link rel="stylesheet" href="style.css?v=panel_perf_v1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@400;700;900&family=Russo+One&display=swap" rel="stylesheet">
@@ -39,11 +39,174 @@
                             <span>sn</span>
                         </div>
                     </div>
+                    <div class="setting-item">
+                        <label data-i18n="matchType">Maç Tipi</label>
+                        <select id="matchType" class="arena-select">
+                            <option value="normal" data-i18n="matchTypeNormal">Normal</option>
+                            <option value="derby" data-i18n="matchTypeDerby">Derbi</option>
+                            <option value="final" data-i18n="matchTypeFinal">Final</option>
+                            <option value="chaos" data-i18n="matchTypeChaos">Kaos</option>
+                            <option value="rematch" data-i18n="matchTypeRematch">Rövanş</option>
+                        </select>
+                    </div>
                     <label class="toggle-setting">
                         <input type="checkbox" id="autoModeToggle">
                         <span class="toggle-switch"></span>
                         <span class="toggle-copy" data-i18n="autoModeToggle">Kaos Barı</span>
                     </label>
+                    <div class="setting-item">
+                        <label data-i18n="autoModePriority">Kaos Önceliği</label>
+                        <select id="autoModePriority" class="arena-select">
+                            <option value="mixed" data-i18n="autoModePriorityMixed">Karışık</option>
+                            <option value="speed" data-i18n="speedMode">2X HIZ</option>
+                            <option value="speed4" data-i18n="speed4Mode">4X HIZ</option>
+                            <option value="twoGoals" data-i18n="twoGoalMode">2 KALE</option>
+                            <option value="singleBallGoals" data-i18n="singleBallGoalMode">TEK TOP 2 KALE</option>
+                            <option value="reverse" data-i18n="reverseMode">TERS DÖNÜŞ</option>
+                            <option value="shrink" data-i18n="shrinkMode">DAR ÇEMBER</option>
+                            <option value="multiBall" data-i18n="multiBallMode">ÇİFT TOP</option>
+                            <option value="goldenTouch" data-i18n="goldenTouchMode">ALTIN DOKUNUŞ</option>
+                            <option value="freezeFrame" data-i18n="freezeFrameMode">ZAMANI DONDUR</option>
+                            <option value="bumper" data-i18n="bumperMode">TAMPON MODU</option>
+                            <option value="tinyBall" data-i18n="tinyBallMode">MİNİ TOP</option>
+                            <option value="heavyBall" data-i18n="heavyBallMode">AĞIR TOP</option>
+                            <option value="goalSwap" data-i18n="goalSwapMode">KALE DEĞİŞ</option>
+                            <option value="stopCircle" data-i18n="stopCircleMode">DAİRE DUR</option>
+                            <option value="stealPoint" data-i18n="stealPointMode">PUAN ÇAL</option>
+                            <option value="goalErase" data-i18n="goalEraseMode">GOL SİL</option>
+                            <option value="blackout" data-i18n="blackoutMode">BLACKOUT</option>
+                            <option value="lastGoalWins" data-i18n="lastGoalWinsMode">SON GOL KAZANIR</option>
+                            <option value="arenaDepth" data-i18n="arenaDepthMode">ARENA DERİNLİĞİ</option>
+                        </select>
+                    </div>
+                    <div class="setting-item collapsible-setting collapsed">
+                        <label data-i18n="autoModePool">Kaos Mod Havuzu</label>
+                        <div class="chaos-mode-pool">
+                            <label><input type="checkbox" data-chaos-mode="speed" checked><span data-i18n="speedMode">2X HIZ</span></label>
+                            <label><input type="checkbox" data-chaos-mode="speed4" checked><span data-i18n="speed4Mode">4X HIZ</span></label>
+                            <label><input type="checkbox" data-chaos-mode="twoGoals" checked><span data-i18n="twoGoalMode">2 KALE</span></label>
+                            <label><input type="checkbox" data-chaos-mode="singleBallGoals" checked><span data-i18n="singleBallGoalMode">TEK TOP 2 KALE</span></label>
+                            <label><input type="checkbox" data-chaos-mode="reverse" checked><span data-i18n="reverseMode">TERS DÖNÜŞ</span></label>
+                            <label><input type="checkbox" data-chaos-mode="shrink" checked><span data-i18n="shrinkMode">DAR ÇEMBER</span></label>
+                            <label><input type="checkbox" data-chaos-mode="multiBall" checked><span data-i18n="multiBallMode">ÇİFT TOP</span></label>
+                            <label><input type="checkbox" data-chaos-mode="goldenTouch" checked><span data-i18n="goldenTouchMode">ALTIN DOKUNUŞ</span></label>
+                            <label><input type="checkbox" data-chaos-mode="freezeFrame" checked><span data-i18n="freezeFrameMode">ZAMANI DONDUR</span></label>
+                            <label><input type="checkbox" data-chaos-mode="bumper" checked><span data-i18n="bumperMode">TAMPON MODU</span></label>
+                            <label><input type="checkbox" data-chaos-mode="tinyBall" checked><span data-i18n="tinyBallMode">MİNİ TOP</span></label>
+                            <label><input type="checkbox" data-chaos-mode="heavyBall" checked><span data-i18n="heavyBallMode">AĞIR TOP</span></label>
+                            <label><input type="checkbox" data-chaos-mode="goalSwap" checked><span data-i18n="goalSwapMode">KALE DEĞİŞ</span></label>
+                            <label><input type="checkbox" data-chaos-mode="stopCircle" checked><span data-i18n="stopCircleMode">DAİRE DUR</span></label>
+                            <label><input type="checkbox" data-chaos-mode="stealPoint" checked><span data-i18n="stealPointMode">PUAN ÇAL</span></label>
+                            <label><input type="checkbox" data-chaos-mode="goalErase" checked><span data-i18n="goalEraseMode">GOL SİL</span></label>
+                            <label><input type="checkbox" data-chaos-mode="blackout" checked><span data-i18n="blackoutMode">BLACKOUT</span></label>
+                            <label><input type="checkbox" data-chaos-mode="lastGoalWins" checked><span data-i18n="lastGoalWinsMode">SON GOL KAZANIR</span></label>
+                            <label><input type="checkbox" data-chaos-mode="arenaDepth" checked><span data-i18n="arenaDepthMode">ARENA DERİNLİĞİ</span></label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="timerStyle">Süre Görünümü</label>
+                        <select id="timerStyle" class="arena-select">
+                            <option value="classic" data-i18n="timerStyleClassic">Klasik Sayaç</option>
+                            <option value="fuse" data-i18n="timerStyleFuse">Fitil Bar</option>
+                            <option value="matchClock" data-i18n="timerStyleMatchClock">90 Dakika Saati</option>
+                        </select>
+                    </div>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="allowDrawToggle">
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="allowDrawToggle">Beraberlik Modu</span>
+                    </label>
+                    <div class="setting-item">
+                        <label data-i18n="oddsFavoriteTeam">Oran Favorisi</label>
+                        <select id="oddsFavoriteTeam" class="arena-select">
+                            <option value="1" data-i18n="team1">1. TAKIM</option>
+                            <option value="2" data-i18n="team2">2. TAKIM</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="oddsFavoritePercent">Favori Oranı</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="oddsFavoritePercent" min="50" max="90" step="1" value="58">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="miniThreatToggle" checked>
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="miniThreatToggle">Hook Yazısı</span>
+                    </label>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="coldOpenToggle" checked>
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="coldOpenToggle">Cold Open Video</span>
+                    </label>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="scenarioModeToggle">
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="scenarioModeToggle">Senaryo Modu</span>
+                    </label>
+                    <div class="setting-item">
+                        <label data-i18n="scenarioLeadTeam">İlk Önde Gidecek</label>
+                        <select id="scenarioLeadTeam" class="arena-select">
+                            <option value="1" data-i18n="team1">1. TAKIM</option>
+                            <option value="2" data-i18n="team2">2. TAKIM</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="scenarioLeadUntil">Kaçıncı Saniyeye Kadar</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="scenarioLeadUntil" min="5" max="55" step="1" value="20">
+                            <span>sn</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="scenarioWinnerTeam">Final Kazanan</label>
+                        <select id="scenarioWinnerTeam" class="arena-select">
+                            <option value="1" data-i18n="team1">1. TAKIM</option>
+                            <option value="2" data-i18n="team2">2. TAKIM</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label data-i18n="scenarioStrength">Müdahale Gücü</label>
+                        <select id="scenarioStrength" class="arena-select">
+                            <option value="low" data-i18n="scenarioLow">Düşük</option>
+                            <option value="medium" data-i18n="scenarioMedium" selected>Orta</option>
+                            <option value="high" data-i18n="scenarioHigh">Yüksek</option>
+                        </select>
+                    </div>
+                    <label class="toggle-setting">
+                        <input type="checkbox" id="scenarioFailsafeToggle" checked>
+                        <span class="toggle-switch"></span>
+                        <span class="toggle-copy" data-i18n="scenarioFailsafeToggle">Son Saniye Garantisi</span>
+                    </label>
+                    <div class="experimental-fx-panel collapsible-block collapsed">
+                        <div class="mini-section-title" data-i18n="experimentalFxSettings">DENEYSEL EFEKTLER</div>
+                        <label class="toggle-setting compact-toggle">
+                            <input type="checkbox" id="winnerFxToggle" checked>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-copy" data-i18n="winnerFxToggle">Winner FX</span>
+                        </label>
+                        <label class="toggle-setting compact-toggle">
+                            <input type="checkbox" id="finalRushFxToggle" checked>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-copy" data-i18n="finalRushFxToggle">Final Rush FX</span>
+                        </label>
+                        <label class="toggle-setting compact-toggle">
+                            <input type="checkbox" id="extraGlowFxToggle" checked>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-copy" data-i18n="extraGlowFxToggle">Extra Glow</span>
+                        </label>
+                        <label class="toggle-setting compact-toggle">
+                            <input type="checkbox" id="soundPriorityToggle" checked>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-copy" data-i18n="soundPriorityToggle">Sound Priority</span>
+                        </label>
+                        <label class="toggle-setting compact-toggle">
+                            <input type="checkbox" id="lowPerformanceToggle">
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-copy" data-i18n="lowPerformanceToggle">Low Performance Mode</span>
+                        </label>
+                    </div>
                     <label class="toggle-setting">
                         <input type="checkbox" id="videoEditModeToggle">
                         <span class="toggle-switch"></span>
@@ -59,13 +222,11 @@
                     <div class="setting-item">
                         <label data-i18n="arenaSelect">Arena / Pitch</label>
                         <select id="arenaSelect" class="arena-select"></select>
+                        <button type="button" id="deleteArenaPreset" class="add-color-btn delete-preset-btn" data-i18n="deleteArenaPreset">ARENAYI SİL</button>
                     </div>
                     <div class="setting-item">
                         <label data-i18n="arenaUpload">Arena Görselleri</label>
-                        <label class="file-custom">
-                            <input type="file" id="arenaFiles" accept="image/*" multiple>
-                            <span class="file-btn" data-i18n="selectArenas">Arena Seç</span>
-                        </label>
+                        <input type="file" id="arenaFiles" class="arena-file-input" accept="image/*" multiple>
                     </div>
                 </section>
 
@@ -75,6 +236,11 @@
                     <div class="teams-grid">
                         <div class="team-config-card">
                             <label class="team-label" data-i18n="team1">1. TAKIM</label>
+                            <div class="setting-item">
+                                <label data-i18n="teamPreset">Hazır Takım</label>
+                                <select id="team1Preset" class="arena-select team-preset-select"></select>
+                                <button type="button" id="deleteTeam1Preset" class="add-color-btn delete-preset-btn" data-i18n="deleteTeamPreset">TAKIMI SİL</button>
+                            </div>
                             <input type="text" id="team1Name" value="Fenerbahçe">
                             <div class="team-assets">
                                 <div class="asset-item">
@@ -98,11 +264,17 @@
                                         <span class="file-btn" data-i18n="select">Seç</span>
                                     </label>
                                 </div>
+                                <button type="button" class="add-color-btn" id="saveTeam1Preset" data-i18n="saveTeamPreset">TAKIMI KAYDET</button>
                             </div>
                         </div>
 
                         <div class="team-config-card">
                             <label class="team-label" data-i18n="team2">2. TAKIM</label>
+                            <div class="setting-item">
+                                <label data-i18n="teamPreset">Hazır Takım</label>
+                                <select id="team2Preset" class="arena-select team-preset-select"></select>
+                                <button type="button" id="deleteTeam2Preset" class="add-color-btn delete-preset-btn" data-i18n="deleteTeamPreset">TAKIMI SİL</button>
+                            </div>
                             <input type="text" id="team2Name" value="Galatasaray">
                             <div class="team-assets">
                                 <div class="asset-item">
@@ -126,13 +298,14 @@
                                         <span class="file-btn" data-i18n="select">Seç</span>
                                     </label>
                                 </div>
+                                <button type="button" class="add-color-btn" id="saveTeam2Preset" data-i18n="saveTeamPreset">TAKIMI KAYDET</button>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Group: Physics -->
-                <section class="settings-section">
+                <section class="settings-section collapsible-section collapsed">
                     <h3 class="section-title" data-i18n="physicsSettings">FİZİK VE HIZ AYARLARI</h3>
                     <div class="physics-grid">
                         <div class="setting-item">
@@ -154,11 +327,13 @@
                     </div>
                 </section>
 
-                <section class="settings-section">
+                <section class="settings-section collapsible-section collapsed">
                     <h3 class="section-title" data-i18n="modeSettings">ANLIK MODLAR</h3>
                     <div class="mode-actions">
                         <button id="speedMode" class="mode-btn" data-i18n="speedMode">2X HIZ</button>
+                        <button id="speed4Mode" class="mode-btn" data-i18n="speed4Mode">4X HIZ</button>
                         <button id="twoGoalMode" class="mode-btn" data-i18n="twoGoalMode">2 KALE</button>
+                        <button id="singleBallGoalMode" class="mode-btn" data-i18n="singleBallGoalMode">TEK TOP 2 KALE</button>
                         <button id="reverseMode" class="mode-btn" data-i18n="reverseMode">TERS DÖNÜŞ</button>
                         <button id="shrinkMode" class="mode-btn" data-i18n="shrinkMode">DAR ÇEMBER</button>
                         <button id="multiBallMode" class="mode-btn" data-i18n="multiBallMode">ÇİFT TOP</button>
@@ -170,12 +345,20 @@
                         <button id="goalSwapMode" class="mode-btn" data-i18n="goalSwapMode">GOAL SWAP</button>
                         <button id="stopCircleMode" class="mode-btn" data-i18n="stopCircleMode">DAİRE DUR</button>
                         <button id="stealPointMode" class="mode-btn" data-i18n="stealPointMode">STEAL POINT</button>
+                        <button id="goalEraseMode" class="mode-btn" data-i18n="goalEraseMode">GOL SİL</button>
+                        <button id="blackoutMode" class="mode-btn" data-i18n="blackoutMode">BLACKOUT</button>
+                        <button id="lastGoalWinsMode" class="mode-btn" data-i18n="lastGoalWinsMode">SON GOL KAZANIR</button>
+                        <button id="arenaDepthMode" class="mode-btn" data-i18n="arenaDepthMode">ARENA DERİNLİĞİ</button>
                         <button id="clutchMode" class="mode-btn wide-mode-btn" data-i18n="clutchMode">CLUTCH TIME</button>
                     </div>
                 </section>
 
-                <section class="settings-section">
+                <section class="settings-section collapsible-section collapsed">
                     <h3 class="section-title" data-i18n="manualTextSettings">MANUEL YAZILAR</h3>
+                    <div class="manual-custom-bar">
+                        <input type="text" id="manualCustomText" maxlength="42" placeholder="Kendi yazını yaz">
+                        <button type="button" id="manualCustomShow" class="manual-btn manual-custom-btn" data-i18n="manualCustomShow">GÖSTER</button>
+                    </div>
                     <div class="manual-actions">
                         <button type="button" class="manual-btn manual-goal-btn" data-manual-burst="letsGo" data-i18n="manualLetsGo">BAŞLIYOR!</button>
                         <button type="button" class="manual-btn manual-neon-btn" data-manual-burst="soClose" data-i18n="manualSoClose">ÇOK YAKIN!</button>
@@ -196,6 +379,8 @@
                     <button id="pauseGame" class="secondary-btn" data-i18n="pause">DURDUR</button>
                     <button id="muteSound" class="secondary-btn" data-i18n="sound">SES</button>
                 </div>
+                <button id="showBestFrame" class="secondary-btn wide-action-btn" data-i18n="showBestFrame">En İyi Kareyi Göster</button>
+                <button id="resetMatchSim" class="soft-reset-btn" data-i18n="resetMatch">Maçı Sıfırla</button>
                 <button id="applySettings" class="main-start-btn" data-i18n="startSim">SİMÜLASYONU BAŞLAT</button>
                 <button id="fullResetSim" class="reset-link-btn" data-i18n="resetAll">Tüm Ayarları Sıfırla</button>
             </div>
@@ -216,18 +401,26 @@
                 <img id="preMatchBannerImg" src="assets/images/banner.png" alt="">
             </div>
 
+            <div id="coldOpenOverlay" class="cold-open-overlay" aria-hidden="true">
+                <video id="coldOpenVideo" class="cold-open-video" playsinline preload="auto"></video>
+                <div class="cold-open-dissolve"></div>
+            </div>
+
             <div id="preVsHook" class="pre-vs-hook" aria-hidden="true">
                 <div class="hook-noise"></div>
                 <div class="hook-question-glass">
                     <span id="hookEyebrow" class="hook-eyebrow">SENCE</span>
                     <h2 id="hookQuestion">KİM KAZANIR?</h2>
+                    <div id="hookThreat" class="hook-threat"></div>
                 </div>
                 <div class="hook-choice-row">
                     <div class="hook-choice hook-choice-1">
                         <div id="hookLogo1" class="hook-logo"></div>
+                        <div id="hookOdds1" class="hook-odds">50%</div>
                     </div>
                     <div class="hook-choice hook-choice-2">
                         <div id="hookLogo2" class="hook-logo"></div>
+                        <div id="hookOdds2" class="hook-odds">50%</div>
                     </div>
                 </div>
             </div>
@@ -309,6 +502,22 @@
 
             <div class="timer-container">
                 <span id="timerDisplay">01:00</span>
+                <div id="fuseTimerBar" class="fuse-timer-bar" aria-hidden="true">
+                    <div id="fuseTimerBurn" class="fuse-timer-burn"></div>
+                    <span class="fuse-spark"></span>
+                </div>
+                <div id="matchClockTimer" class="match-clock-timer" aria-hidden="true">
+                    <div class="match-clock-orb">
+                        <span class="match-clock-ball">⚽</span>
+                    </div>
+                    <div class="match-clock-copy">
+                        <span class="match-clock-label" data-i18n="matchClockLabel">MAÇ SAATİ</span>
+                        <span class="match-clock-time-wrap">
+                            <span id="matchClockDisplay">00:00</span>
+                            <span id="matchClockStoppage" class="match-clock-stoppage"></span>
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="scoreboard">
@@ -327,21 +536,43 @@
             <!-- Winner Spotlight Overlay -->
             <div id="winnerSpotlight" class="winner-spotlight-overlay">
                 <div class="spotlight-beam"></div>
+                <div class="draw-spotlight-beam draw-left"></div>
+                <div class="draw-spotlight-beam draw-right"></div>
                 <div class="winner-congrats">
-                    <span class="congrats-title" data-i18n="winner">KAZANAN</span>
+                    <span class="congrats-title" id="spotlightTitle" data-i18n="winner">KAZANAN</span>
                     <h2 class="congrats-name" id="spotlightName">FENERBAHÇE</h2>
                 </div>
-                <div class="winner-ball-container">
-                    <div class="winner-ball" id="spotlightBall">
-                        <div class="winner-ball-logo" id="spotlightLogo"></div>
-                        <div class="winner-ball-shimmer"></div>
+                <div class="winner-final-card" id="winnerFinalCard">
+                    <div class="winner-card-logo" id="spotlightLogo"></div>
+                    <div class="winner-card-name" id="winnerCardName">FENERBAHÇE</div>
+                    <div class="winner-card-score" id="winnerCardScore">0</div>
+                </div>
+                <div class="draw-final-panel" id="drawFinalPanel">
+                    <div class="draw-team-card team1">
+                        <div class="draw-team-logo" id="drawLogo1"></div>
+                        <div class="draw-team-name" id="drawName1">TAKIM 1</div>
+                        <div class="draw-team-score" id="drawScore1">0</div>
                     </div>
-                    <div class="winner-ball-shadow"></div>
+                    <div class="draw-score-divider">-</div>
+                    <div class="draw-team-card team2">
+                        <div class="draw-team-logo" id="drawLogo2"></div>
+                        <div class="draw-team-name" id="drawName2">TAKIM 2</div>
+                        <div class="draw-team-score" id="drawScore2">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bestFrameOverlay" class="best-frame-overlay" aria-hidden="true">
+                <div class="best-frame-panel">
+                    <button type="button" id="bestFrameClose" class="best-frame-close" aria-label="Kapat">×</button>
+                    <div class="best-frame-title" data-i18n="bestFrameTitle">EN İYİ KARE</div>
+                    <img id="bestFrameImage" alt="">
+                    <div id="bestFrameMeta" class="best-frame-meta">Henüz kare yakalanmadı</div>
                 </div>
             </div>
 
             <div id="subscribeContainer" class="subscribe-overlay">
-                <video id="subscribeVideo" src="assets/video/abone.mp4" playsinline muted style="filter: url(#chromaKey); width: 100%; height: auto; display: block;"></video>
+                <video id="subscribeVideo" src="assets/video/abone.mp4" preload="auto" playsinline muted style="filter: url(#chromaKey); width: 100%; height: auto; display: block;"></video>
             </div>
             <div class="vignette"></div>
         </main>
@@ -378,7 +609,8 @@
         </defs>
     </svg>
 
-    <script src="assets/images/arenas/arenas.js?v=1"></script>
-    <script src="simulation.js?v=premium_v2_videoeditready"></script>
+    <script src="assets/images/arenas/arenas.js?v=2"></script>
+    <script src="assets/images/teams/teams.js?v=1"></script>
+    <script src="simulation.js?v=panel_perf_v1"></script>
 </body>
 </html>
